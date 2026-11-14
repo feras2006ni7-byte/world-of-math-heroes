@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: world-of-math-heroes
+    runtime: node
+    plan: free
+    buildCommand: unzip -o World_of_Math_Heroes_Web_Deploy_Package.zip -d . && cd world_of_math_heroes_phase2_local && npm install && npm run build
+    startCommand: cd world_of_math_heroes_phase2_local && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
